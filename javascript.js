@@ -1,30 +1,26 @@
-let humanScore = 0;
-let computerScore = 0;
-let humanChoice;
-let gameMsg;
-
-function getComputerChoice() {
+function handleClick (event) {
+    const buttonId = event.target.id;
+    if (buttonId === "rockButton"){
+        humanChoice = "rock";
+    }
+    else if (buttonId === "paperButton"){
+        humanChoice = "paper";
+    }
+    else if (buttonId === "scissorsButton"){
+        humanChoice = "scissors";
+    }
     const choices = ["rock", "paper", "scissors"];
     const randomIndex = Math.floor(Math.random() * choices.length);
-    return choices[randomIndex];
-}
-
-function getHumanChoice(){
-    humanChoice = window.prompt("Please select a value either rock paper or scrissors", "paper");
-    return humanChoice;
-}
-humanChoice = getHumanChoice();
-let computerChoice = getComputerChoice();
-
-function playGame(){
+    let computerChoice = choices[randomIndex];
+    
     function playRound(humanChoice, computerChoice){
         let resultMsg = "";
         if(humanChoice === computerChoice){
             resultMsg = "It is a tie! Play agan."
         }
-        else if((humanChoice.toLowerCase() === "paper" & computerChoice === "rock") ||
-               (humanChoice.toLowerCase() === "rock" & computerChoice === "scissors") ||
-               (humanChoice.toLowerCase() === "scissors" & computerChoice === "paper"))
+        else if((humanChoice === "paper" & computerChoice === "rock") ||
+               (humanChoice === "rock" & computerChoice === "scissors") ||
+               (humanChoice === "scissors" & computerChoice === "paper"))
             {
                 humanScore++;
                 resultMsg = `You win! ${humanChoice} beat ${computerChoice}`;
@@ -33,23 +29,24 @@ function playGame(){
                 computerScore++;
                 resultMsg = `You lose! ${computerChoice} beat ${humanChoice}`;
             }
-        return{
-            resultMsg: resultMsg,
-            humanScore: humanScore,
-            computerScore: computerScore
-        };    
-    }
-    for (let i =0; i < 4; i++){
-        console.log(playRound(humanChoice, computerChoice));
-        computerChoice = getComputerChoice();
-        humanChoice = getHumanChoice();
-    }
-    if (humanScore > computerScore){
-        gameMsg = `CONGRATULATIONS!!!!YOU WIN GAME..`;
-    }
-    else{
-        gameMsg = `You lose....play new game`;
-    }
-    return gameMsg;
+        return resultMsg;
+        
+ }
+console.log(playRound(humanChoice, computerChoice));
 }
-console.log(playGame());
+
+let humanScore = 0;
+let computerScore = 0;
+let humanChoice = '';
+let gameMsg;
+
+const rockButton = document.getElementById('rockButton');
+const paperButton = document.getElementById('paperButton');
+const scissorsButton = document.getElementById('scissorsButton');
+
+rockButton.addEventListener('click', handleClick);
+paperButton.addEventListener('click', handleClick);
+scissorsButton.addEventListener('click', handleClick);
+
+
+        
